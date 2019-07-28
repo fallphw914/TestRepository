@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hwaboon.myapp.review.model.ReviewVO;
 import com.hwaboon.myapp.review.paging.Criteria;
+import com.hwaboon.myapp.review.paging.SearchCriteria;
 
 @Repository
 public class ReviewDAO implements IReviewDAO {
@@ -75,6 +76,18 @@ public class ReviewDAO implements IReviewDAO {
 	public int countArticles() throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE+".countArticles");
+	}
+
+	@Override
+	public List<ReviewVO> listSearch(SearchCriteria cri) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+".listSearch", cri);
+	}
+
+	@Override
+	public int countSearchArticles(SearchCriteria cri) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE + ".countArticles");
 	}
 
 	

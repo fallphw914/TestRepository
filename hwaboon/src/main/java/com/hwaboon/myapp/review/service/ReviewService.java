@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hwaboon.myapp.review.model.ReviewVO;
 import com.hwaboon.myapp.review.paging.Criteria;
+import com.hwaboon.myapp.review.paging.SearchCriteria;
 import com.hwaboon.myapp.review.repository.IReviewDAO;
 
 @Service
@@ -55,6 +56,18 @@ public class ReviewService implements IReviewService {
 	public int countArticles() throws Exception {
 		
 		return dao.countArticles();
+	}
+
+	@Override
+	public List<ReviewVO> listSearch(SearchCriteria cri) throws Exception {
+		
+		return dao.listSearch(cri);
+	}
+
+	@Override
+	public int countSearchArticles(SearchCriteria cri) throws Exception {
+		
+		return dao.countSearchArticles(cri);
 	}
 
 }

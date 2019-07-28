@@ -2,23 +2,24 @@ package com.hwaboon.myapp.review.paging;
 
 public class Criteria {
 	
+	//사용자가 요청한 페이지번호
 	private int page;
-	private int countPerPage;
 	
-	
+	//한 페이지당 들어갈 게시물 수
+	private int countPerPage;	
 	
 	public Criteria() {
-		this.page=1;
-		this.countPerPage=10;
+		this.page = 1;
+		this.countPerPage = 10;
 	}
-	
+
 	public int getPage() {
 		return page;
 	}
 
 	public void setPage(int page) {
 		if(page <= 0) {
-			this.page=1;
+			this.page = 1;
 			return;
 		}
 		this.page = page;
@@ -33,18 +34,20 @@ public class Criteria {
 			this.countPerPage = 10;
 			return;
 		}
-		this.countPerPage=countPerPage;
-		
+		this.countPerPage = countPerPage;
 	}
 	
+	//SQL LIMIT절의 조회 시작 인덱스를 계산해서 리턴하는 메서드.
 	public int getPageStart() {
-		
-		return (this.page-1)*countPerPage;
-		
+		return (this.page - 1) * countPerPage;
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		return "Criteria [page=" + page + ", countPerPage=" + countPerPage + "]";
+	}
+
 	
 	
 

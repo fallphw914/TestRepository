@@ -53,6 +53,25 @@
 			<li><a href="/">HOME</a></li>
 			<li><a href="/review/write">Write</a></li>
 	</ul>
+	
+	 <div class="form-group col-sm-2">
+                            <select id="condition" class="form-control" name="condition">                            	
+                                <option value="title" <c:out value="${param.condition == 'title' ? 'selected' : ''}"/>>제목</option>
+                                <option value="content" <c:out value="${param.condition == 'content' ? 'selected' : ''}"/>>내용</option>
+                                <option value="writer" <c:out value="${param.condition == 'writer' ? 'selected' : ''}"/>>작성자</option>
+                                <option value="titleContent" <c:out value="${param.condition == 'titleContent' ? 'selected' : ''}"/>>제목+내용</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary btn-flat" id="searchBtn">
+                                        <i class="fa fa-search"></i> 검색
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
 </div>
 
 <div class="body">
@@ -66,21 +85,31 @@
 				<th style="width: 60px">조회수</th>
 			</tr>
 			</thead>
-			
-			
-			<c:forEach var="article" items="${articles}">
-			
-			<tr>
-				<td><c:out value="${article.reviewNo}" /></td>			
-				<td align="center"><a href="<c:url value='/review/content?reviewNo=${article.reviewNo}&page=${pageCreator.criteria.page}'/>">${article.title}</a></td>			
-				<td><c:out value="${article.writer}" /></td>			
-				<td align="center"><fmt:formatDate pattern="yyyy.MM.dd" value="${article.regDate}" /></td>			
-				<td><c:out value="${article.viewCnt}" /></td>			
-			</tr>
-			
-			</c:forEach>
 
- 	 </table>
+				<c:if test="${articles.size() <= 0}">
+					<tr>
+						<td align="center" colspan="5"><strong>검색 결과가 없습니다!</strong></td>
+					</tr>
+				</c:if>
+
+
+				<c:if test="${articles.size() > 0}">
+				
+					<c:forEach var="article" items="${articles}">
+						<tr>
+							<td>${article.reviewNo}</td>
+							<td>
+							 <a href="<c:url value='/review/content?reviewNo=${article.reviewNo}&page=${pageCreator.criteria.page}'/>">
+									${article.title}
+									 </a>
+							</td>
+							<td>${article.writer}</td>
+							<td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd" /></td>
+							<td>${article.viewCnt}</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</table>
 	
  </div>
 	<div class="footer" style="text-align: center">

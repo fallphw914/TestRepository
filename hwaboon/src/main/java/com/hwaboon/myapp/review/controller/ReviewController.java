@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hwaboon.myapp.review.model.ReviewVO;
-import com.hwaboon.myapp.review.paging.Criteria;
 import com.hwaboon.myapp.review.paging.PageCreator;
+import com.hwaboon.myapp.review.paging.SearchCriteria;
 import com.hwaboon.myapp.review.service.IReviewService;
 
 @Controller
@@ -36,17 +36,34 @@ public class ReviewController {
 	 * 
 	 * return "review/list"; }
 	 */
-	//게시글 목록 페이징 처리 후 열람
+	
+	/*
+	 * //게시글 목록 페이징 처리 후 열람
+	 * 
+	 * @RequestMapping(value="/list", method=RequestMethod.GET) public String
+	 * list(Criteria cri,Model model) throws Exception{
+	 * 
+	 * logger.info("게시글 목록 페이지 처리 후 요청");
+	 * 
+	 * PageCreator pc = new PageCreator(); pc.setCriteria(cri);
+	 * pc.setArticleTotalCount(service.countArticles());
+	 * 
+	 * model.addAttribute("articles",service.listPaging(cri));
+	 * model.addAttribute("pageCreator", pc);
+	 * 
+	 * return "review/list"; }
+	 */
+	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String list(Criteria cri,Model model) throws Exception{
+	public String list(SearchCriteria cri,Model model) throws Exception{
 
 		logger.info("게시글 목록 페이지 처리 후 요청");
 		
 		PageCreator pc = new PageCreator();
 		pc.setCriteria(cri);
-		pc.setArticleTotalCount(service.countArticles());
+		pc.setArticleTotalCount(service.countSearchArticles(cri));
 		
-		model.addAttribute("articles",service.listPaging(cri));
+		model.addAttribute("articles", service.listSearch(cri));
 		model.addAttribute("pageCreator", pc);
 
 		return "review/list";
