@@ -23,6 +23,11 @@
          location 위치에 있는 것을 사용할 때 mapping처럼 사용하겠다. 
     -->
     <resources mapping="/resources/**" location="/resources/" />
+    <resources mapping="/css/**" location="/resources/css/"/>
+    <resources mapping="/fonts/**" location="/resources/fonts/"/>
+    <resources mapping="/images/**" location="/resources/images/"/>
+    <resources mapping="/js/**" location="/resources/js/"/>
+    <resources mapping="/vendor/**" location="/resources/vendor/"/>
     
  
  

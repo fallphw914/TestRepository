@@ -22,5 +22,7 @@ public interface IReviewDAO {
 	void insert(ReviewVO article) throws Exception;
 	void update(ReviewVO article) throws Exception;
 	void delete(int reviewNo) throws Exception;
+	
+	void updateViewCnt(int boardNo) throws Exception;
 
 }

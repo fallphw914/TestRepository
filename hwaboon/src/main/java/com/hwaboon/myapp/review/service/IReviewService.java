@@ -8,7 +8,7 @@ import com.hwaboon.myapp.review.paging.SearchCriteria;
 
 public interface IReviewService {
 	
-	ReviewVO getArticle(int reviewNo) throws Exception;
+	ReviewVO getArticle(int reviewNo,boolean trigger) throws Exception;
 	List<ReviewVO> getAllArticles() throws Exception;
 	
 	List<ReviewVO> listPaging(Criteria cri) throws Exception;

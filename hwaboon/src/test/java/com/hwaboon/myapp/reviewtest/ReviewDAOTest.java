@@ -53,7 +53,7 @@ public class ReviewDAOTest {
    @Test
    public void deleteTest() throws Exception{
       
-      reviewDAO.delete(3);
+      reviewDAO.delete(511);
    }
    
    @Test

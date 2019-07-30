@@ -6,88 +6,133 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<style>
-.wraper {
-	width: 50%;
-	border: 1px solid #444444;
-	border-collapse: collapse;
-	margin-left: auto;
-	margin-right: auto;
-}
-</style>
+<title>Content</title>
+<jsp:include page="../include/static-header.jsp" />
 </head>
 <body>
-	<h2>content 페이지</h2>
-	<div class="wraper">
-		<div>
-			<div>
-			
-				<div>
-					<label for="title">제목</label><br>
-					<div style="height: 55px">${article.title}</div>
-				</div>
-				<label for="regdate">작성시간</label><br>
-				<div style="height: 55px"><fmt:formatDate pattern="yyyy.MM.dd a hh:mm" value="${article.regDate}"/></div>
-			
-				<div>
-					<label for="writer">작성자</label><br>
-					<div style="height: 55px">${article.writer}</div>
-				</div>
-				
-				<div>
-					<label for="content">내용</label><br>
-					<div style="height: 400px">${article.content}</div>
-				</div>
-			</div>
 
-			<div>
-				<div>
-					<form role="form" method="post">
-						<input type="hidden" name="reviewNo" value="${article.reviewNo}">
-					</form>
-						<button type="submit" class="btn btn-list"><i class="fa fa-save"></i> 목록 </button>
-						<button type="submit" class="btn btn-modify"><i class="fa fa-save"></i> 수정	</button>
-						<button type="submit" class="btn btn-delete"><i class="fa fa-save"></i> 삭제	</button>
-				
-				</div>
-			
-			</div>
+	
+ <jsp:include page="../include/main-header.jsp" />
+ 
+ <jsp:include page="../include/cart.jsp" />
+ 
+ 
 
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Content
+		</h2>
+	</section>	
+	
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="<c:url value='/'/>" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<a href="<c:url value='/review/list'/>" class="stext-109 cl8 hov-cl1 trans-04">
+				Review
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				${article.title}
+			</span>
 		</div>
 	</div>
+
+
+	<!-- Content page -->
+	<section class="bg0 p-t-62 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-9 p-b-80">
+					<div class="p-r-45 p-r-0-lg">
+
+						<h4 class="ltext-109 cl2 p-b-28">${article.title}</h4>
+
+						<div class="p-t-32">
+							<span class="flex-w flex-m stext-111 cl2 p-b-19"> <span>
+									<span class="cl4">By</span> ${article.writer} <span
+									class="cl12 m-l-4 m-r-6">|</span>
+							</span> <span> <fmt:formatDate pattern="yyyy.MM.dd a hh:mm"
+										value="${article.regDate}" /> <span class="cl12 m-l-4 m-r-6">|</span>
+							</span> <span> ${article.viewCnt} Views </span>
+							</span>
+
+							<div class="wrap-pic-w how-pos5-parent">
+								<img src="/images/blog-04.jpg" alt="IMG-BLOG">
+
+							</div>
+							<br>
+
+
+							<p class="stext-117 cl6 p-b-26">${article.content}</p>
+							<br>
+
+						</div>
+
+						<div>
+							<form role="form" method="post">
+								<input type="hidden" name="reviewNo" value="${article.reviewNo}">
+								<input type="hidden" name="page" value="${criteria.page}">
+								<input type="hidden" name="countPerPage" value="${criteria.countPerPage}"> <input type="hidden"
+									name="condition" value="${criteria.condition}"> 
+								<input type="hidden" name="keyword" value="${criteria.keyword}">
+
+							</form>
+						</div>
+						<div class="flex-w size-217">
+							<a href="#"
+								class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 btn-list">
+								목록 </a> 
+								<a href="#"
+								class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 btn-modify">
+								수정 </a> 
+								<a href="#"
+								class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 btn-delete">
+								삭제 </a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</section>
 	
-	<!-- autocomplete from jQuery Ui -->
-    <script src='{% static "js/jquery-1.11.3.min.js" %}'></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <jsp:include page="../include/main-footer.jsp" />
+ 
+ <jsp:include page="../include/js.jsp" /> 
+
 	
 	<script type="text/javascript">
 	
 	
 		$(document).ready(function() {
-			
-			const formObj=$("form[role='form']");
-			
-			$(".btn-list").on("click", function(){
-				formObj.attr("method","get");
-				formObj.attr("action","list");
+
+			const formObj = $("form[role='form']");
+
+			$(".btn-list").on("click", function() {
+				formObj.attr("method", "get");
+				formObj.attr("action", "list");
 				formObj.submit();
 			});
-			
-			$(".btn-modify").on("click", function(){
-				formObj.attr("method","get");
-				formObj.attr("action","modify");
+
+			$(".btn-modify").on("click", function() {
+				formObj.attr("method", "get");
+				formObj.attr("action", "modify");
 				formObj.submit();
 			});
-			
-			$(".btn-delete").on("click", function(){
-				formObj.attr("action","delete");
+
+			$(".btn-delete").on("click", function() {
+				formObj.attr("action", "delete");
 				formObj.submit();
 			});
 		});
-	
 	</script>
 </body>
 </html>

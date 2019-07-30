@@ -13,7 +13,7 @@ public class PageCreator {
 	private boolean prev;
 	private boolean next;
 
-	private final int displayPageNum = 10;
+	private final int displayPageNum = 5;
 
 
 	//URI와 요청파라미터를 쉽게 작성하기 위한 기능

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hwaboon.myapp.review.model.ReviewVO;
 import com.hwaboon.myapp.review.paging.Criteria;
@@ -16,10 +17,22 @@ public class ReviewService implements IReviewService {
 	@Autowired
 	public IReviewDAO dao;
 	
+	@Transactional
 	@Override
-	public ReviewVO getArticle(int reviewNo) throws Exception {
+	public ReviewVO getArticle(int reviewNo,boolean trigger) throws Exception {
 		
-		return dao.getArticle(reviewNo);
+		ReviewVO article = dao.getArticle(reviewNo);
+		
+		if(trigger) {
+			String content = article.getContent()
+									.replace("\n", "<br>")
+									.replace("\u0020", "&nbsp;");
+			article.setContent(content);
+		}
+		
+		dao.updateViewCnt(reviewNo);
+		
+		return article;
 	}
 
 	@Override

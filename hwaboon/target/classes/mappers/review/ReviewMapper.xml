@@ -62,4 +62,50 @@
       WHERE review_no=#{reviewNo}
    </delete>
    
+    <!-- 검색된 게시물 수 조회처리 -->
+    <select id="countSearchArticles" resultType="int">
+    	SELECT COUNT(*) 
+		FROM mvc_review 
+		<include refid="search" />
+    </select>
+    
+    <!-- 검색된 게시물 목록 조회처리 -->
+    <select id="listSearch" resultMap="ReviewResultMap">
+    	
+    	SELECT * 
+    	FROM mvc_review     	
+    	<include refid="search" />     	    	    	
+    	ORDER BY review_no DESC 
+    	LIMIT #{pageStart}, #{countPerPage}
+    	
+    </select>
+    
+    <!-- 중복되는 동적 SQL구문 처리 -->
+    <sql id="search">
+     	<if test="condition != ''">
+	    	<!-- 동적 SQL구문 -->
+	    	<if test="condition == 'title'">
+	    	WHERE title LIKE CONCAT('%', #{keyword}, '%') 
+	    	</if>
+	    	<if test="condition == 'writer'">
+	    	WHERE writer LIKE CONCAT('%', #{keyword}, '%') 
+	    	</if>
+	    	<if test="condition == 'content'">
+	    	WHERE content LIKE CONCAT('%', #{keyword}, '%') 
+	    	</if>
+	    	<if test="condition == 'titleContent'">
+	    	WHERE title LIKE CONCAT('%', #{keyword}, '%') 
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+	    	</if>
+	    	
+	    </if>
+    </sql>
+    
+     <!-- 조회수 상승 SQL -->
+    <update id="updateViewCnt">
+    	UPDATE mvc_review 
+    	SET view_cnt = view_cnt + 1 
+    	WHERE review_no = #{reviewNo}
+    </update>
+   
    </mapper>

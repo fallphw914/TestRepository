@@ -90,6 +90,12 @@ public class ReviewDAO implements IReviewDAO {
 		return sqlSession.selectOne(NAMESPACE + ".countArticles");
 	}
 
+	@Override
+	public void updateViewCnt(int boardNo) throws Exception {
+		sqlSession.update(NAMESPACE+".updateViewCnt", boardNo);
+		
+	}
+
 	
 
 	

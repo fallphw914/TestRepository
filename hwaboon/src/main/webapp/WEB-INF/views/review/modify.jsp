@@ -4,62 +4,79 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<style>
-.wraper {
-	width: 50%;
-	border: 1px solid #444444;
-	border-collapse: collapse;
-	margin-left: auto;
-	margin-right: auto;
-}
-</style>
+<title>Modify</title>
+<jsp:include page="../include/static-header.jsp" />
 
 </head>
+
 <body>
-<h2>modify 페이지</h2>
 
-<div class="wraper">
-	<div>
-		<form role="form" method="POST">
-					<input type="hidden" name="reviewNo" value="${article.reviewNo}">
-			
-				<div>
-					<label for="title">제목</label><br>
-					<input class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${article.title}">
-				</div>
-				
-				<div>
-					<label for="writer">작성자</label><br>
-					<input class="form-control" id="writer" name="writer" value="${article.writer}" readonly>
-				</div>
-				
-				<div>
-					<label for="content">내용</label><br>
-					<textarea class="form-control" id="content" name="content"
-						rows="15" placeholder="내용을 입력해주세요" style="resize: none;">${article.content}</textarea>
-				</div>
+ <jsp:include page="../include/main-header.jsp" />
+ 
+ <jsp:include page="../include/cart.jsp" />
 
-		
-			
-			
-					
-					
-					<div>
-						<button type="submit" class="btn btn-mod"><i class="fa fa-save"></i> 수정 완료	</button>
-						<button type="submit" class="btn btn-cancel"><i class="fa fa-save"></i> 취소	</button>
+<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Modify
+		</h2>
+	</section>	
+
+	<!-- Content page -->
+	<section class="bg0 p-t-62 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-9 p-b-80">
+					<div class="p-r-45 p-r-0-lg">
+
+						<div class="wraper">
+							<form role="form" method="POST">
+								
+								<input type="hidden" name="reviewNo" value="${article.reviewNo}">
+                  			    <input type="hidden" name="page" value="${criteria.page}">
+                  				 <input type="hidden" name="countPerPage" value="${criteria.countPerPage}">
+                 			    <input type="hidden" name="condition" value="${criteria.condition}">
+                    			<input type="hidden" name="keyword" value="${criteria.keyword}">
+								
+								<div>
+								<div><h4>제목</h4></div><br>
+							
+								<div class="bor19 size-218 m-b-20">
+
+									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${article.title}">
+								</div>
+								
+								<div><h4>작성자</h4></div><br>
+
+								<div class="bor19 size-218 m-b-20">
+
+									<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text" name="writer" id="writer" placeholder="작성자" value="${article.writer}" readonly>
+								</div>
+
+								<div class="bor19 m-b-20">
+									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="content" id="content" placeholder="내용을 입력해주세요.">${article.content}</textarea>
+								</div>
+								</div>
+
+								<div class="flex-r-m" style="padding-top: 50px">
+									<button type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04 btn-mod">Modify</button>
+									<button type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04 btn-cancel" style="margin-left: 50px">Cancel</button>
+								</div>
+
+							</form>
+						</div>
+
 					</div>
-				</form>			
+				</div>
+
 			</div>
 		</div>
-		
+	</section>
 
 
-<!-- autocomplete from jQuery Ui -->
-    <script src='{% static "js/jquery-1.11.3.min.js" %}'></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <jsp:include page="../include/main-footer.jsp" />
+ 
+ <jsp:include page="../include/js.jsp" /> 
 	
 	<script type="text/javascript">
 	

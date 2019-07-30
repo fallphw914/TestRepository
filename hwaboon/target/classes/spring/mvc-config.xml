@@ -58,6 +58,11 @@
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <constructor-arg ref="sqlSessionFactory"/>
     </bean>
+    
+    <!-- 트랜잭션 매니저 빈 등록 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds" />
+	</bean>
  
  
     
