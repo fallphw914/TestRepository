@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <jsp:include page="include/static-header.jsp" />
 
@@ -12,7 +12,7 @@
    
    <jsp:include page="include/main-header.jsp" />
 
-   <jsp:include page="include/cart.jsp" />
+  
 
       
 

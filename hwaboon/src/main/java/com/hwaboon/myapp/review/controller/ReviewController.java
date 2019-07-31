@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,7 +56,7 @@ public class ReviewController {
 	 * return "review/list"; }
 	 */
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@GetMapping(value = "/list")
 	public String list(SearchCriteria cri,Model model) throws Exception{
 
 		logger.info("게시글 목록 페이지 처리 후 요청");

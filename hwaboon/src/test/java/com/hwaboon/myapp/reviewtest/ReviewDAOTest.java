@@ -30,7 +30,7 @@ public class ReviewDAOTest {
    @Test 
    public void insertTest() throws Exception{
 
-      for(int i=1; i<=500; i++) { 
+      for(int i=1; i<=200; i++) { 
          ReviewVO vo = new ReviewVO();
          vo.setTitle(i+"번째 테스트 게시물"); vo.setContent(i+"번째 게시물 내용");
          vo.setWriter("user"+i); reviewDAO.insert(vo);

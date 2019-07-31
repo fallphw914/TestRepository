@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="ShoppingCartMapper">
+
+<resultMap type="com.hwaboon.myapp.mypage.model.ShoppingCartVO" id="ShoppingCartMap">
+	<result column="cart_id" property="cartId" />
+	<result column="user_id" property="userId" />
+	<result column="item_no" property="itemNo" />
+	<result column="amount" property="amount" />
+	<result column="item_name" property="itemName" />
+	<result column="item_price" property="itemPrice" />
+</resultMap>
+
+<select id="list" resultMap="ShoppingCartMap">
+	SELECT b.item_name as item_name, a.cart_id as cart_id, a.user_id as user_id, b.item_price as item_price, a.amount as amount 
+	FROM shopping_cart a, item b, user c 
+	WHERE a.user_id = #{userId} AND a.user_id = c.user_id AND a.item_no = b.item_no
+</select>
+
+<delete id="delete">
+	DELETE FROM shopping_cart 
+	WHERE cart_id = #{cartId}
+</delete>
+
+<select id="sum" resultType="int">
+	SELECT sum(item_price * a.amount) as item_price 
+	FROM shopping_cart a, item b, user c 
+	WHERE a.user_id = #{userId} AND a.user_id = c.user_id AND a.item_no = b.item_no
+</select>
+
+
+<!-- <insert id="insert">
+	INSERT INTO shopping_cart(item_no, item_name, item_price) 
+	VALUES(#{item_no}, #{item_name}, #{item_price})
+</insert>
+
+<update id="updateAmount">
+	UPDATE shopping_cart 
+	SET item_amount = #{itemAmount} 
+	WHERE item_no = #{itemNo}
+</update>
+
+<select id="getAmount" resultType="int">
+	SELECT item_amount
+	FROM shopping_cart
+	WHERE item_no = #{itemNo}
+</select>
+
+<delete id="delete">
+	DELETE FROM shopping_cart 
+	WHERE item_no = #{itemNo}
+</delete>
+
+<update id="shipped">
+	UPDATE shopping_cart 
+	SET shipped = 1, shipped_date = now() 
+	WHERE item_no = #{itemNo}
+</update>
+
+<update id="delivered">
+	UPDATE shopping_cart 
+	SET delivered = 1, delivered_date = now() 
+	WHERE item_no = #{itemNo}
+</update> -->
+
+</mapper>

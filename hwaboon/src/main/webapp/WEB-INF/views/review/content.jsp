@@ -14,7 +14,7 @@
 	
  <jsp:include page="../include/main-header.jsp" />
  
- <jsp:include page="../include/cart.jsp" />
+
  
  
 
