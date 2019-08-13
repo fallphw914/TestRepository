@@ -63,7 +63,13 @@
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="ds" />
 	</bean>
- 
+	
+	<!-- 파일 업로드 라이브러리 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>50000000</value>
+		</property>
+	</bean>
  
     
     <!-- [컴포넌트 자동 스캔 명령] -->

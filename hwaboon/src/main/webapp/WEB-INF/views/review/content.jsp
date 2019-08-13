@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +15,7 @@
 	
  <jsp:include page="../include/main-header.jsp" />
  
-
  
- 
-
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/images/bg-02.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
@@ -56,7 +54,7 @@
 
 						<div class="p-t-32">
 							<span class="flex-w flex-m stext-111 cl2 p-b-19"> <span>
-									<span class="cl4">By</span> ${article.writer} <span
+									<span class="cl4">By </span> ${login.userId} <span
 									class="cl12 m-l-4 m-r-6">|</span>
 							</span> <span> <fmt:formatDate pattern="yyyy.MM.dd a hh:mm"
 										value="${article.regDate}" /> <span class="cl12 m-l-4 m-r-6">|</span>
@@ -64,7 +62,17 @@
 							</span>
 
 							<div class="wrap-pic-w how-pos5-parent">
-								<img src="/images/blog-04.jpg" alt="IMG-BLOG">
+								<c:set var="len" value="${fn:length(article.fileName)}"/>
+								<c:set var="filetype" value="${fn:toUpperCase(fn:substring(article.fileName, len-4, len))}"/>
+								<c:choose>
+								<c:when test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}">				
+		           					<img class="img-thumbnail img-fluid" src="<c:url value='/review/file/${article.fileId}'/>" alt="" style="width:100%; height:400px;">		        
+		      					</c:when>
+		      					<c:otherwise>
+		      						<img class="img-thumbnail img-fluid" src="<c:url value='/images/no-image.PNG'/>" alt="" style="width:100%; height:400px;">
+		      					</c:otherwise>
+		      					
+		      					</c:choose>
 
 							</div>
 							<br>
@@ -89,12 +97,14 @@
 							<a href="#"
 								class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 btn-list">
 								목록 </a> 
+								
 								<a href="#"
 								class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 btn-modify">
 								수정 </a> 
 								<a href="#"
 								class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 btn-delete">
 								삭제 </a>
+								
 						</div>
 					</div>
 				</div>

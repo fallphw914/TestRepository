@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hwaboon.myapp.review.model.ReviewBoardUploadFileVO;
 import com.hwaboon.myapp.review.model.ReviewVO;
 import com.hwaboon.myapp.review.paging.Criteria;
 import com.hwaboon.myapp.review.paging.SearchCriteria;
@@ -65,6 +66,14 @@ public class ReviewDAO implements IReviewDAO {
 		sqlSession.delete(NAMESPACE+".delete",reviewNo);
 		
 	}
+	
+	@Override
+	public void deleteAll(int reviewNo) throws Exception {
+
+
+		sqlSession.delete(NAMESPACE+".deleteAll",reviewNo);
+		
+	}
 
 	@Override
 	public List<ReviewVO> listPaging(Criteria cri) throws Exception {
@@ -87,14 +96,47 @@ public class ReviewDAO implements IReviewDAO {
 	@Override
 	public int countSearchArticles(SearchCriteria cri) throws Exception {
 		
-		return sqlSession.selectOne(NAMESPACE + ".countArticles");
+		return sqlSession.selectOne(NAMESPACE + ".countSearchArticles", cri);
 	}
 
 	@Override
-	public void updateViewCnt(int boardNo) throws Exception {
-		sqlSession.update(NAMESPACE+".updateViewCnt", boardNo);
+	public void updateViewCnt(int reviewNo) throws Exception {
+		sqlSession.update(NAMESPACE+".updateViewCnt", reviewNo);
 		
 	}
+
+	@Override
+	public void insertFileData(ReviewBoardUploadFileVO file) {
+		sqlSession.insert(NAMESPACE+".insertFileData", file);
+		
+	}
+
+	@Override
+	public int selectMaxArticleNo() {
+		return sqlSession.selectOne(NAMESPACE + ".selectMaxArticleNo");
+	}
+
+	@Override
+	public int selectMaxFileId() {
+		return sqlSession.selectOne(NAMESPACE + ".selectMaxFileId");
+	}
+
+	@Override
+	public List<ReviewVO> selectArticleList(SearchCriteria cri) {
+		return sqlSession.selectList(NAMESPACE+".selectArticleList",cri);
+	}
+
+	@Override
+	public ReviewVO selectArticle(int reviewNo) {
+		return sqlSession.selectOne(NAMESPACE+".selectArticle",reviewNo);
+	}
+
+	@Override
+	public ReviewBoardUploadFileVO getFile(int fileId) {
+		return sqlSession.selectOne(NAMESPACE+".getFile",fileId);
+	}
+
+	
 
 	
 

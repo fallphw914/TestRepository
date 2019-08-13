@@ -30,7 +30,7 @@
 					<div class="p-r-45 p-r-0-lg">
 
 						<div class="wraper">
-							<form role="form" method="POST">
+							<form role="form" method="POST" enctype="multipart/form-data">
 								
 								<input type="hidden" name="reviewNo" value="${article.reviewNo}">
                   			    <input type="hidden" name="page" value="${criteria.page}">
@@ -57,6 +57,11 @@
 									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="content" id="content" placeholder="내용을 입력해주세요.">${article.content}</textarea>
 								</div>
 								</div>
+								
+								<!-- <div class="form-group">
+		   						  <label>파일</label>
+							     <input type="file" multiple="multiple" name="file">      
+							    </div> -->
 
 								<div class="flex-r-m" style="padding-top: 50px">
 									<button type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04 btn-mod">Modify</button>
@@ -93,7 +98,7 @@
 			});
 			
 			$(".btn-cancel").on("click", function(){
-				formObj.attr("method","get");
+				formObj.attr("method","get")
 				formObj.attr("action","content");
 				formObj.submit();
 			});

@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
 
@@ -24,6 +25,22 @@
 			Review
 		</h2>
 	</section>	
+	
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="<c:url value='/'/>" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<a href="<c:url value='/review/list'/>" class="stext-109 cl8 hov-cl1 trans-04">
+				Review
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+		</div>
+	</div>
 
 
 	<!-- Content page -->
@@ -43,22 +60,33 @@
 
 						<c:forEach var="article" items="${articles}">
 						
-						<div class="p-b-63">
+						<div class="p-t-32 p-b-63 bor10">
 							<a href="<c:url value='/review/content${pageCreator.makeSearchURI(pageCreator.criteria.page)}&reviewNo=${article.reviewNo}'/>" class="hov-img0 how-pos5-parent">
-								<img src="/images/blog-04.jpg" alt="IMG-BLOG">
+								<!--  <img src="/images/blog-04.jpg" alt="IMG-BLOG">  -->
+								
+								<c:set var="len" value="${fn:length(article.fileName)}"/>
+								<c:set var="filetype" value="${fn:toUpperCase(fn:substring(article.fileName, len-4, len))}"/>
+								<c:choose>
+								<c:when test="${(filetype eq '.JPG') or (filetype eq 'JPEG') or (filetype eq '.PNG') or (filetype eq '.GIF')}">				
+		           					<img class="img-thumbnail img-fluid" src="<c:url value='/review/file/${article.fileId}'/>" alt="" style="width:100%; height:400px;">		        
+		      					</c:when>
+		      					<c:otherwise>
+		      						<img class="img-thumbnail img-fluid" src="<c:url value='/images/no-image.PNG'/>" alt="" style="width:100%; height:400px;">
+		      					</c:otherwise>
+		      					
+		      					</c:choose>
 							</a>
 
 							<div class="p-t-32">
 								<h4 class="p-b-15">
-									<a href="blog-detail.html" class="ltext-108 cl2 hov-cl1 trans-04">
-										<a href="<c:url value='/review/content${pageCreator.makeSearchURI(pageCreator.criteria.page)}&reviewNo=${article.reviewNo}'/>">
-		                                ${article.title}</a>
+									<a href="<c:url value='/review/content${pageCreator.makeSearchURI(pageCreator.criteria.page)}&reviewNo=${article.reviewNo}'/>" class="ltext-108 cl2 hov-cl1 trans-04">
+		                                ${article.title}
 									</a>
 								</h4>
 
-								<p class="stext-117 cl6">
+								<%-- <p class="stext-117 cl6">
 									${article.content}  
-								</p>
+								</p> --%>
 
 								<div class="flex-w flex-sb-m p-t-18">
 									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
@@ -88,10 +116,11 @@
 						</c:forEach>
 						</c:if>
 						
+						
 						<div class="flex-r-m" style="padding-top: 50px">
-									<button type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04 btn-write">Write</button>
-								</div>
-
+							<button type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04 btn-write">P o s t</button>
+						</div>
+						
 						
 			<!-- Pagination -->
 				<div class="flex-c-m flex-w w-full p-t-10 m-lr--7" >
@@ -130,7 +159,7 @@
 												<option value="title"<c:out value="${param.condition == 'title' ? 'selected' : ''}"/>>제목</option>
 													<option value="content"<c:out value="${param.condition == 'content' ? 'selected' : ''}"/>>내용</option>
 													<option value="writer"<c:out value="${param.condition == 'writer' ? 'selected' : ''}"/>>작성자</option>
-													<option value="title"<c:out value="${param.condition == 'title' ? 'selected' : ''}"/>>제목+내용</option>
+													<option value="titleContent"<c:out value="${param.condition == 'titleContent' ? 'selected' : ''}"/>>제목+내용</option>
 											</select>
 											<div class="dropDownSelect2"></div>
 										</div>
@@ -156,7 +185,7 @@
  <jsp:include page="../include/js.jsp" /> 
 
 <script type="text/javascript">
-	const result="${message}";
+	/* const result="${message}";
 	
 	
 	
@@ -168,7 +197,7 @@
 	}
 	else if(result=="delSuccess"){
 		alert("게시물이 삭제되었습니다.");
-	}
+	} */
 	
 	//JQuery문의 시작
 	$(document).ready(function() {

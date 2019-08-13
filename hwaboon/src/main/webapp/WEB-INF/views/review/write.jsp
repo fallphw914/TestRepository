@@ -31,7 +31,7 @@
 					<div class="p-r-45 p-r-0-lg">
 
 						<div class="wraper">
-							<form role="form" id="writeform" method="POST" action="<c:url value='/review/write'/>">
+							<form role="form" id="writeform" method="POST"  enctype="multipart/form-data">
 								
 								<div>
 								<div><h4>제목</h4></div><br>
@@ -49,12 +49,18 @@
 								</div>
 
 								<div class="bor19 m-b-20">
-									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="content" placeholder="내용을 입력해주세요."></textarea>
+									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="content" id="content" placeholder="내용을 입력해주세요."></textarea>
 								</div>
 								</div>
+								
+								<div class="form-group">
+		   						  <label>파일</label>
+							     <input type="file" multiple="multiple" name="file">      
+							    </div>
 
-								<div>
-									<button type="submit" class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"> Post Comment</button>
+								<div class="flex-r-m" style="padding-top: 50px">
+									<button type="submit" class="btn-write flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04"> Post</button>
+									<button type="submit" class="btn-cancel flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04" style="margin-left: 50px"> cancel</button>
 								</div>
 
 							</form>
@@ -67,6 +73,50 @@
 		</div>
 	</section>
 	
+	<jsp:include page="../include/main-footer.jsp"/>
+	
+<jsp:include page="../include/js.jsp"/>
+
+<script>
+	$(document).ready(function() {
+			
+			const formObj=$("form[role='form']");
+			
+
+			$(document).ready(function() {
+				
+				const formObj=$("form[role='form']");
+				
+				$(".btn-write").on("click", function(){
+					
+					const title = $("#title").val();
+					
+				
+					if(!title){
+						content.setvalue
+						alert("제목 및 작성자 내용을 입력해야 합니다.");
+						formObj.attr("method","get")
+						formObj.attr("action","write");
+						formObj.submit();
+					}else{
+					formObj.attr("action","write");
+					formObj.submit();
+					}
+				});
+				
+				$(".btn-cancel").on("click", function(){
+					formObj.attr("method","get")
+					formObj.attr("action","list");
+					formObj.submit();
+				});
+				
+				
+				
+			});
+			
+		});
+	
+</script>
 
 </body>
 </html>

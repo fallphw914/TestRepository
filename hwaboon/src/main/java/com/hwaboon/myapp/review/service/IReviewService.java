@@ -2,13 +2,14 @@ package com.hwaboon.myapp.review.service;
 
 import java.util.List;
 
+import com.hwaboon.myapp.review.model.ReviewBoardUploadFileVO;
 import com.hwaboon.myapp.review.model.ReviewVO;
 import com.hwaboon.myapp.review.paging.Criteria;
 import com.hwaboon.myapp.review.paging.SearchCriteria;
 
 public interface IReviewService {
 	
-	ReviewVO getArticle(int reviewNo,boolean trigger) throws Exception;
+	/* ReviewVO getArticle(int reviewNo,boolean trigger) throws Exception; */
 	List<ReviewVO> getAllArticles() throws Exception;
 	
 	List<ReviewVO> listPaging(Criteria cri) throws Exception;
@@ -22,6 +23,14 @@ public interface IReviewService {
 	void update(ReviewVO article) throws Exception;
 	void delete(int reviewNo) throws Exception;
 	
+	//파일 업로드
+	
+	void insertArticle(ReviewVO article, ReviewBoardUploadFileVO file) throws Exception;
+	
+
+	ReviewVO selectArticle(int reviewNo, boolean trigger) throws Exception;
+	List<ReviewVO> selectArticleList(SearchCriteria cri) throws Exception;
+	ReviewBoardUploadFileVO getFile(int fileId) throws Exception;
 	
 
 

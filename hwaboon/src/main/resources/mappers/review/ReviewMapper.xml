@@ -5,6 +5,7 @@
 <mapper namespace="ReviewMapper">
 
    <!-- DB컬럼과 VO필드명이 다른 경우 처리 방법 -->
+  <!-- DB컬럼과 VO필드명이 다른 경우 처리 방법 -->
    <resultMap id="ReviewResultMap"  type="ReviewVO">
       <id property="reviewNo" column="review_no" />
       <result property="title" column="title" />
@@ -13,7 +14,21 @@
       <result property="regDate" column="reg_date" />
       <result property="viewCnt" column="view_cnt" />
       <result property="likeCnt" column="like_cnt" />
+      
+      <result property="fileId" column="file_id" />
+		<result property="fileName" column="file_name" />
+		<result property="fileSize" column="file_size" />
+		<result property="fileContentType" column="file_content_type" />
    </resultMap>
+   
+   <resultMap id="FileResultMap" type="UpReviewVO">
+		<id property="fileId" column="file_id" />
+		<result property="reviewNo" column="review_no" />
+		<result property="fileName" column="file_name" />
+		<result property="fileSize" column="file_size" />
+		<result property="fileContentType" column="file_content_type" />
+		<result property="fileData" column="file_data" />
+	</resultMap>
    
    <!-- 단일 게시물 조회 -->
    <select id="getArticle" resultMap="ReviewResultMap">
@@ -45,8 +60,13 @@
    
    <!-- 게시물 등록  쿼리-->
    <insert id="insert">
-      INSERT INTO mvc_review (title, content, writer) 
-      VALUES (#{title},#{content},#{writer})
+     <![CDATA[
+			INSERT INTO 
+			MVC_REVIEW 
+			(WRITER, TITLE, CONTENT) 
+			VALUES 
+			(#{writer}, #{title}, #{content})
+		]]>
    </insert>
    
    <!-- 게시물 수정  쿼리-->
@@ -59,6 +79,12 @@
    <!-- 게시물 삭제  쿼리-->
    <delete id="delete">
       DELETE FROM mvc_review 
+      WHERE review_no=#{reviewNo}
+   </delete>
+   
+   <!-- 파일 삭제  쿼리-->
+   <delete id="deleteAll">
+      DELETE FROM REVIEW_BOARD_UPLOAD_FILE 
       WHERE review_no=#{reviewNo}
    </delete>
    
@@ -107,5 +133,92 @@
     	SET view_cnt = view_cnt + 1 
     	WHERE review_no = #{reviewNo}
     </update>
+    
+    
+    <!-- 파일 업로드 -->
+    
+     <!-- 최대 글번호 읽어오기 -->
+	<select id="selectMaxArticleNo" resultType="int">
+	<![CDATA[
+		SELECT 
+			MAX(review_no) 
+		FROM mvc_review 
+	]]>
+	</select>
+
+	<select id="selectMaxFileId" resultType="int">
+	<![CDATA[
+		SELECT 
+			MAX(FILE_ID) 
+		FROM REVIEW_BOARD_UPLOAD_FILE
+	]]>
+	</select>
+	
+	 <!-- 게시글 파일 첨부 -->
+	<insert id="insertFileData">
+	<![CDATA[
+		INSERT INTO 
+		REVIEW_BOARD_UPLOAD_FILE 
+			(review_no, FILE_NAME, FILE_SIZE, FILE_CONTENT_TYPE, FILE_DATA) 
+		VALUES 
+			(#{reviewNo}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileData})
+	]]>
+	</insert>
+	
+	<!-- 게시글 목록 보기 -->
+	<select id="selectArticleList" resultMap="ReviewResultMap">
+	
+		SELECT 
+			B.review_no				AS review_no, 
+			WRITER, 
+			TITLE, 
+			CONTENT, 
+			REG_DATE, 
+			VIEW_CNT,
+			R.FILE_ID			AS file_id, 
+			R.FILE_NAME			AS file_name, 
+			R.FILE_SIZE			AS file_size,
+			R.FILE_CONTENT_TYPE	AS file_content_type
+		FROM MVC_REVIEW B
+		
+		LEFT OUTER JOIN REVIEW_BOARD_UPLOAD_FILE R 
+			ON B.review_no=R.review_no 
+		<include refid="search" />
+		ORDER BY review_no DESC 
+		LIMIT #{pageStart}, #{countPerPage}
+		
+	</select>
+	
+	<!-- 게시글  보기 -->
+	<select id="selectArticle" resultMap="ReviewResultMap">
+	<![CDATA[
+		SELECT 
+			B.review_no				AS review_no, 
+			WRITER, 
+			TITLE, 
+			CONTENT, 
+			REG_DATE, 
+			VIEW_CNT, 
+			R.FILE_ID			AS file_id, 
+			R.FILE_NAME			AS file_name, 
+			R.FILE_SIZE			AS file_size,
+			R.FILE_CONTENT_TYPE	AS file_content_type
+		FROM MVC_REVIEW B 
+		LEFT OUTER JOIN REVIEW_BOARD_UPLOAD_FILE R 
+			ON B.review_no=R.review_no 
+		WHERE B.review_no=#{reviewNo}
+	]]>
+	</select>
+	
+	<!-- 파일 조회 -->
+	<select id="getFile" resultMap="FileResultMap">
+	<![CDATA[
+		SELECT 
+			*
+		FROM REVIEW_BOARD_UPLOAD_FILE 
+		WHERE FILE_ID=#{fileId}
+	]]>
+	</select>
+    
    
    </mapper>

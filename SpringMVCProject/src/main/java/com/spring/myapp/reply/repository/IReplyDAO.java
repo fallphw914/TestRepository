@@ -14,7 +14,7 @@ public interface IReplyDAO {
 	void insert (ReplyVO reply) throws Exception;
 	
 	//댓글 쓰기 기능
-		void update (ReplyVO reply) throws Exception;
+	void update (ReplyVO reply) throws Exception;
 	
 	//댓글 삭제 기능
 	void delete(int replyNo) throws Exception;

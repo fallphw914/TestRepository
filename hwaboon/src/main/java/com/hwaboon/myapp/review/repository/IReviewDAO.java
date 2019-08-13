@@ -2,9 +2,11 @@ package com.hwaboon.myapp.review.repository;
 
 import java.util.List;
 
+import com.hwaboon.myapp.review.model.ReviewBoardUploadFileVO;
 import com.hwaboon.myapp.review.model.ReviewVO;
 import com.hwaboon.myapp.review.paging.Criteria;
 import com.hwaboon.myapp.review.paging.SearchCriteria;
+
 
 
 public interface IReviewDAO {
@@ -22,7 +24,19 @@ public interface IReviewDAO {
 	void insert(ReviewVO article) throws Exception;
 	void update(ReviewVO article) throws Exception;
 	void delete(int reviewNo) throws Exception;
+	void deleteAll(int reviewNo) throws Exception;
 	
-	void updateViewCnt(int boardNo) throws Exception;
+	
+	void updateViewCnt(int reviewNo) throws Exception;
+	
+	
+	//파일 업로드 
+		void insertFileData(ReviewBoardUploadFileVO file);//파일을 업로딩 할 떄 insert 메서드
+		int selectMaxArticleNo();
+		int selectMaxFileId();
+		List<ReviewVO> selectArticleList(SearchCriteria cri);
+		ReviewVO selectArticle(int reviewNo);
+		ReviewBoardUploadFileVO getFile(int fileId);
+	
 
 }
