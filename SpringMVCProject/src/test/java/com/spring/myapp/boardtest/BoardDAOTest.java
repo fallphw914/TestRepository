@@ -26,7 +26,7 @@ public class BoardDAOTest {
 	private IBoardDAO boardDAO;
 
 	//게시물 등록 테스트
-	/*
+	
 	@Test
 	public void insertTest() throws Exception {
 
@@ -38,7 +38,7 @@ public class BoardDAOTest {
 			boardDAO.insert(vo);
 		}
 
-	}*/
+	}
 
 	//게시물 개별 조회 테스트
 	/*@Test

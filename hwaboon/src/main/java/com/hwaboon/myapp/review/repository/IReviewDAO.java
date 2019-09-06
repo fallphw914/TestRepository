@@ -26,8 +26,11 @@ public interface IReviewDAO {
 	void delete(int reviewNo) throws Exception;
 	void deleteAll(int reviewNo) throws Exception;
 	
-	
+	//조회수 상승 상승 하락 처리
 	void updateViewCnt(int reviewNo) throws Exception;
+	
+	//댓글 개수 상승 하락처리
+	void updateReplyCnt(int reviewNo, int count) throws Exception;
 	
 	
 	//파일 업로드 

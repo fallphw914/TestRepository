@@ -37,4 +37,11 @@
    <link rel="stylesheet" type="text/css" href="/css/util.css">
    <link rel="stylesheet" type="text/css" href="/css/main.css">
 <!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/css/AdminLTE.css">
+   <link rel="stylesheet" type="text/css" href="/css/AdminLTE.min.css">
+<!--===============================================================================================-->
+   <link rel="stylesheet" type="text/css" href="/css/alt/AdminLTE-without-plugins.css">
+   <link rel="stylesheet" type="text/css" href="/css/alt/AdminLTE-without-plugins.min.css">
+<!--===============================================================================================-->
+ 
 </head>

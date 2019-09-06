@@ -1,6 +1,8 @@
 package com.hwaboon.myapp.review.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.stream.events.Namespace;
 
@@ -134,6 +136,18 @@ public class ReviewDAO implements IReviewDAO {
 	@Override
 	public ReviewBoardUploadFileVO getFile(int fileId) {
 		return sqlSession.selectOne(NAMESPACE+".getFile",fileId);
+	}
+
+	@Override
+	public void updateReplyCnt(int reviewNo, int count) throws Exception {
+
+
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("reviewNo", reviewNo);
+		datas.put("count", count);
+		
+		sqlSession.update(NAMESPACE+".updateReplyCnt",datas);
+		
 	}
 
 	

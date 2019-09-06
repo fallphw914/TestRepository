@@ -14,6 +14,7 @@
       <result property="regDate" column="reg_date" />
       <result property="viewCnt" column="view_cnt" />
       <result property="likeCnt" column="like_cnt" />
+      <result property="replyCnt" column="reply_cnt" />
       
       <result property="fileId" column="file_id" />
 		<result property="fileName" column="file_name" />
@@ -76,6 +77,8 @@
       WHERE review_no=#{reviewNo}
    </update>
    
+   
+   
    <!-- 게시물 삭제  쿼리-->
    <delete id="delete">
       DELETE FROM mvc_review 
@@ -134,6 +137,14 @@
     	WHERE review_no = #{reviewNo}
     </update>
     
+     <!-- 댓글 수 수정 SQL -->
+    <update id="updateReplyCnt">
+    	
+    	UPDATE mvc_review 
+    	SET reply_cnt = reply_cnt + #{count} 
+    	WHERE review_no = #{reviewNo}
+    
+    </update>
     
     <!-- 파일 업로드 -->
     

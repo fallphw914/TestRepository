@@ -12,6 +12,7 @@ public class ReviewVO {
 	private int reviewNo;
 	private int viewCnt;
 	private int likeCnt;
+	private int replyCnt;
 	private String title;
 	private String writer;
 	private String content;
